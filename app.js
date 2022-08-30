@@ -56,20 +56,19 @@ Array.prototype.customFlat = function(depth){
     if (depth === undefined) {
         depth = 1;
       }
-      result = [].concat(...this);
-
-    for (let i = 0; i < result.length; i++) {
-       if (Array.isArray(result[i])) {
-        if (depth>0) {
-            result.push(...result[i]);
-            result.splice(i,1);
-            depth--;
-         }
+      var result = [];
+    for (let i = 0; i < this.length; i++) {
+       if (Array.isArray(this[i])) {
+         result = result.concat(this[i].customFlat());
+       }
+       else{
+        result.push(this[i]);
        }
     }
     return result;
 }
-
+var flatArr = [1,2,3, [[4,5]] ];
+console.log(flatArr.customFlat());
 //CUSTOM REVERSE METHOD +
 Array.prototype.customReverse = function () {
 
